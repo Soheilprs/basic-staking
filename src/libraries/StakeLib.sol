@@ -11,10 +11,10 @@ library StakeLib {
         uint256 startTime; // Timestamp when the stake was created.
         bool autoCompound; // Flag to enable or disable auto-compounding of rewards.
     }
+
     /// @notice Calculates the reward for a stake with optional compounding.
     /// @param stake The stake information.
     /// @return The calculated reward.
-
     function calculateReward(StakeInformation storage stake) internal view returns (uint256) {
         uint256 duration = block.timestamp - stake.startTime;
         uint256 periodCount = duration / 365 days; // Calculate full years elapsed

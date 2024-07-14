@@ -41,12 +41,6 @@ contract StakeTokens {
     /// @param amount Amount of token unstaked by the user.
     event UnStaked(address indexed user, address tokenAddress, uint256 amount);
 
-    /// @notice Emitted when users compound their rewards with the staked amount.
-    /// @param user Address of the user who compounded the reward.
-    /// @param tokenAddress Address of the token compounded.
-    /// @param rewardAmount Amount of token used for compounding.
-    event RewardsCompounded(address indexed user, address tokenAddress, uint256 rewardAmount);
-
     // Constructor to initialize the contract with token addresses and their respective APYs.
     constructor(
         address _token0Address,
@@ -143,13 +137,5 @@ contract StakeTokens {
     /// @param tokenAddress Address of the token for which the APY is requested.
     function getApyByTokenAddress(address tokenAddress) public view returns (uint256) {
         return tokensAPY[tokenAddress];
-    }
-
-    /// @notice Function to show the accumulated rewards for a specific token for the caller.
-    /// @param tokenAddress Address of the token for which to display the accumulated rewards.
-    function showUserReward(address tokenAddress) public view returns (uint256) {
-        StakeLib.StakeInformation storage userStake = stakes[msg.sender][tokenAddress];
-        uint256 accumulatedReward = StakeLib.calculateReward(userStake);
-        return userStake.reward + accumulatedReward;
     }
 }
